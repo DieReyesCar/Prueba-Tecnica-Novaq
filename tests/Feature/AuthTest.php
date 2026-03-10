@@ -11,9 +11,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    // ==========================================
     // PRUEBAS DE LOGIN
-    // ==========================================
 
     /** @test */
     public function la_pagina_de_login_carga_correctamente()
@@ -87,9 +85,7 @@ class AuthTest extends TestCase
         $response->assertRedirect('/dashboard');
     }
 
-    // ==========================================
     // PRUEBAS DE PROTECCIÓN DE RUTAS
-    // ==========================================
 
     /** @test */
     public function usuario_no_autenticado_no_puede_ver_el_dashboard()
@@ -109,9 +105,7 @@ class AuthTest extends TestCase
         $response->assertSee($user->name);
     }
 
-    // ==========================================
     // PRUEBAS DE LOGOUT
-    // ==========================================
 
     /** @test */
     public function logout_cierra_sesion_correctamente()
@@ -124,9 +118,7 @@ class AuthTest extends TestCase
         $this->assertGuest();
     }
 
-    // ==========================================
     // PRUEBAS DE RECUPERACIÓN DE CONTRASEÑA
-    // ==========================================
 
     /** @test */
     public function la_pagina_de_recuperacion_carga_correctamente()

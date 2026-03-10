@@ -1,66 +1,100 @@
+# Portal de Acceso para Clientes — Prueba Técnica Novaq
 
+Este proyecto consiste en un sistema de acceso exclusivo para clientes de una empresa. Fue desarrollado con Laravel 12, PHP 8.2, MySQL y Blade.
 
+## Contexto del proyecto
 
+El requerimiento consiste en construir un ingreso seguro para un portal privado, donde solo los clientes registrados de la empresa pueden acceder. El sistema incluye validación de credenciales y un flujo completo de recuperación de contraseña para los casos en que el cliente no recuerde sus datos de acceso.
 
+Como que se trata de un portal exclusivo y no de un registro público, los usuarios son gestionados internamente mediante seeders, lo que simula el proceso real donde un administrador da de alta a los clientes.
 
+## Requisitos
 
+- PHP 8.2 o superior
+- Composer 2.x
+- MySQL 5.7 o superior
+- XAMPP o cualquier servidor local con MySQL activo
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Instalación
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### 1. Clonar o descomprimir el proyecto
 
-## About Laravel
+Si lo prefieres como archivo comprimido, extráelo en la carpeta de tu servidor local. Si lo prefieres por Git:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+git clone 
+cd PruebaTecnicaNovaq
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Instalar dependencias
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+composer install
 
-## Learning Laravel
+### 3. Crear el archivo de configuración
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+cp .env.example .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+En Windows puedes copiar y renombrar el archivo `.env.example` manualmente si el comando no funciona.
 
-## Laravel Sponsors
+### 4. Generar la clave de la aplicación
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+php artisan key:generate
 
-### Premium Partners
+### 5. Configurar la base de datos
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Abre el archivo `.env` y edita las siguientes líneas con tus datos de MySQL:
 
-## Contributing
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=prueba_tecnica_novaq
+DB_USERNAME=root
+DB_PASSWORD=tu_password_aqui
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 6. Crear la base de datos
 
-## Code of Conduct
+Crea una base de datos con el nombre `prueba_tecnica_novaq`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 7. Ejecutar migraciones y seeders
 
-## Security Vulnerabilities
+php artisan migrate --seed
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Esto crea todas las tablas necesarias e inserta los usuarios de prueba automáticamente.
 
-## License
+### 8. Levantar el servidor
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+php artisan serve
+
+## Credenciales de prueba
+
+ Nombre       | Email                | Contraseña 
+--------------|----------------------|------------
+ Cliente Uno  | cliente1@novaq.com   | password123
+ Cliente Dos  | cliente2@novaq.com   | password123
+
+## Flujos disponibles
+
+**Inicio de sesión**
+Accede con las credenciales de la tabla anterior, si los campos están vacíos o las credenciales son incorrectas, el sistema mostrará mensajes de error descriptivos junto a cada campo.
+
+**Recuperación de contraseña**
+Desde la pantalla de login, el cliente puede hacer clic en "¿Olvidaste tu contraseña?" e ingresar su correo. Como el proyecto está en entorno de pruebas, el enlace de recuperación se muestra directamente en pantalla en lugar de enviarse por correo, lo que permite que cualquier evaluador pueda probar el flujo completo sin necesidad de acceder a una bandeja de correo externa.
+
+**Area privada**
+Una vez autenticado, el cliente accede al dashboard donde se muestra su nombre y correo. Las rutas privadas están protegidas con middleware, por lo que no es posible acceder al dashboard sin haber iniciado sesión previamente.
+
+**Cierre de sesión**
+Desde el dashboard, el cliente puede cerrar sesión con el botón correspondiente.
+
+## Pruebas automatizadas
+
+El proyecto incluye pruebas con PHPUnit que cubre validaciones, autenticación, protección de rutas, sesiones y recuperación de contraseña.
+
+Para ejecutarlas:
+
+php artisan test
+
+## Decisiones de diseño
+
+- No se implementó registro público de usuarios porque el sistema es un portal exclusivo. Los clientes son dados de alta por el administrador, lo cual se simula con seeders.
+- La recuperación de contraseña muestra el enlace en pantalla únicamente en entorno de pruebas. En producción, este enlace se enviaría por correo electrónico.
+- Las contraseñas se almacenan encriptadas con bcrypt. Nunca se guardan en texto plano.
+- Todos los formularios incluyen protección CSRF integrada de Laravel.

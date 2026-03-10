@@ -24,7 +24,7 @@
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="••••••••"
+                    placeholder="******"
                     class="{{ $errors->has('password') ? 'error' : '' }}">
                 <span class="toggle-password" onclick="togglePassword('password')">👁</span>
             </div>
@@ -40,7 +40,7 @@
                     type="password"
                     id="password_confirmation"
                     name="password_confirmation"
-                    placeholder="••••••••">
+                    placeholder="******">
                 <span class="toggle-password" onclick="togglePassword('password_confirmation')">👁</span>
             </div>
         </div>
